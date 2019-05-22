@@ -4,8 +4,10 @@
   <h1>All quotes</h1>
 
   <div>
-    {% for quote in qoute_list %}
-      {{ quote.text }}
+    {% for quote in quote_list %}
+      {{ quote.text }} 
+      <p>{{ quote.movie_verbose }}</p>
+      <p>{{ quote.quote_len }}</p>
     {% empty %}
       <p>No quotes</p>
     {% endfor %}
