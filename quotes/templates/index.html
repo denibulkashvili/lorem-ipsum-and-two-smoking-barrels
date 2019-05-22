@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>All quotes</h1>
+
+  <div>
+    {% for quote in qoute_list %}
+      {{ quote.text }}
+    {% empty %}
+      <p>No quotes</p>
+    {% endfor %}
+  </div>
+{% endblock %}
