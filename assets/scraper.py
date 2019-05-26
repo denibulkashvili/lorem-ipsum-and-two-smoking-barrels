@@ -2,16 +2,17 @@
 import json
 from bs4 import BeautifulSoup
 import requests
+from django.utils.text import slugify
 
 # get the source
 MOVIES = [
     {
-        'name': 'LOCK',
-        'url': 'https://www.rottentomatoes.com/m/snatch/quotes/'
+        'name': 'Lock, Stock and Two Smoking Barrels',
+        'url': 'https://www.rottentomatoes.com/m/lock_stock_and_two_smoking_barrels/quotes/'
     },
     {
-        'name': 'SNATCH',
-        'url': 'https://www.rottentomatoes.com/m/lock_stock_and_two_smoking_barrels/quotes/'
+        'name': 'Snatch',
+        'url': 'https://www.rottentomatoes.com/m/snatch/quotes/'
     }
 ]
 
@@ -50,9 +51,12 @@ class Scraper:
 
 if __name__ == "__main__":
     for movie in MOVIES:
-
-        s = Scraper(movie["url"], movie["name"])
+        
+        url = movie["url"]
+        name = slugify(movie["name"])
+        s = Scraper(url, name)
         data = s.save_quotes_list()
 
-        with open(f'quotes/fixtures/{movie["name"]}.json', 'w') as outfile:
+        
+        with open(f'quotes/fixtures/{name}.json', 'w') as outfile:
             json.dump(data, outfile)
