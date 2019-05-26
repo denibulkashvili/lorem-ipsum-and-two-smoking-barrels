@@ -4,12 +4,27 @@
   <h1>All quotes</h1>
 
   <div>
-    {% for quote in quote_list %}
-      {{ quote.text }} 
-      <p>{{ quote.movie_verbose }}</p>
-      <p>{{ quote.quote_len }}</p>
-    {% empty %}
-      <p>No quotes</p>
-    {% endfor %}
+    Generate quotes 
+    <button id="btn-quotes">Load some quotes man</button>
   </div>
+
+  <div id="wrapper">
+  </div>
+
+  {% block javascript %}
+    <script>
+      const loadQuotes = () => {
+        document.getElementById('wrapper').innerHTML = `{% for quote in quote_list %}
+            <div class="quote">{{ quote.text }}</div> 
+            <p>{{ quote.movie }}</p>
+            <p>{{ quote.quote_len }}</p>
+          {% empty %}
+            <p>No quotes</p>
+          {% endfor %}`
+      }
+      document.getElementById('btn-quotes').
+        addEventListener("click", loadQuotes)
+    </script>
+  {% endblock %}
+
 {% endblock %}

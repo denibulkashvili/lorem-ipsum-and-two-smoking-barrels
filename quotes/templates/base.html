@@ -11,10 +11,9 @@
 <body>
   <nav></nav>
   
-  {% block content %}
-  {% endblock %}  
+  {% block content %}{% endblock %}  
 
-  
+  {% block javascript %}{% endblock %}  
   <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
