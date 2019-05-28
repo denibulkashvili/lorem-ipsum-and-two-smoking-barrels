@@ -7,4 +7,3 @@ class HomeView(ListView):
     """Home page view"""
     model = Quote
     template_name = "index.html"
-    
