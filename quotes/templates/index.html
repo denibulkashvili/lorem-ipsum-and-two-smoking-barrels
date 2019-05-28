@@ -1,28 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>All quotes</h1>
+  <h1 class="center">lorem, ipsum <br/>and two smoking barrels</h1>
 
-  <div>
-    Generate quotes 
-    <button id="btn-quotes">Load some quotes man</button>
+  <div class="row">
+    <div class="input-field col s12 m4">
+        <select name="movie-list" id="movie-list">
+          <option value="all">All</option>
+          <option value="snatch">Snatch</option>
+          <option value="lock">Lock, Stock and Two Smoking Barrels</option>
+        </select>
+        <label>Choose a Movie</label>
+      </div>
+      
+      <div class="input-field col s12 m4">
+        <select name="quote-size" id="quote-size">
+          <option value="any">Any</option>
+          <option value="big">Big</option>
+          <option value="small">Small</option>
+        </select>
+        <label>Choose quotes size</label>
+      </div>
+
+      <div class="input-field col s12 m4">
+          <input placeholder="5" id="quote_num" type="number">
+          <label for="quote_num">Number of Quotes</label>
+      </div>
+
+      <div class="center">
+          <a class="waves-effect waves-light btn" type="submit" id="load-quotes">Load Quotes</a>
+      </div>
+      
   </div>
 
-  <div id="wrapper">
+  
+  <br>
+
+  <div id="results">
   </div>
+  
 
   {% block javascript %}
     <script>
-      const loadQuotes = () => {
-        document.getElementById('wrapper').innerHTML = `{% for quote in quote_list %}
-            <div class="quote">{{ quote.text }}</div> 
-            <p>{{ quote.movie }}</p>
-            <p>{{ quote.quote_len }}</p>
-          {% empty %}
-            <p>No quotes</p>
+
+      let movie_selector = document.getElementById("movie-list");
+      let movie_option = movie_selector.options[movie_selector.selectedIndex].text;
+
+      const loadQuotes = (event) => {
+        event.preventDefault();
+        document.getElementById('results').innerHTML = `
+          {% for quote in quote_list %}
+            <div class="quote">{{ quote.text }}</div>
           {% endfor %}`
       }
-      document.getElementById('btn-quotes').
+      document.getElementById('load-quotes').
         addEventListener("click", loadQuotes)
     </script>
   {% endblock %}
