@@ -10,8 +10,12 @@
   <link rel="stylesheet" href="{% static 'css/materialize.css' %}">
 </head>
 <body>
-  <nav></nav>
-  
+  <!-- <nav></nav> -->
+
+  <div class="parallax-container">
+    <div class="parallax"><img src="{% static 'img/poster.png' %}"></div>
+  </div>
+
   <div class="container">
       {% block content %}{% endblock %}  
   </div>
