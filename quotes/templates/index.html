@@ -58,11 +58,12 @@
         let quote_size = quote_size_selector.options[quote_size_selector.selectedIndex].value;
 
         let quote_num_value = document.getElementById("quote_num").value;
-
+        console.log("Filters retrieved...")
         return {movie_name, quote_size, quote_num_value}
       }
 
       const getRandomQuotes = (array, numQuotes) => {
+        console.log("Quotes randomized...")
         return array.sort(() => .5 - Math.random()).slice(0, numQuotes);
       }
 
@@ -84,6 +85,7 @@
         else {
           output = getRandomQuotes(output, output.length);
         }
+        console.log("Filters applied ... ")
         return output
       }
 
@@ -93,11 +95,10 @@
         const movieList = filteredMovieList().map((quote) => {
           return `<p>${quote.text}</p>`
         }).join('');
-
+        console.log("injecting html...")
         document.getElementById('results').innerHTML = movieList;
       }
-      document.getElementById('load-quotes').
-        addEventListener("click", loadQuotes)
+      document.getElementById('load-quotes').addEventListener("click", loadQuotes);
     </script>
   {% endblock %}
 
