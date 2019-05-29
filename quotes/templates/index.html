@@ -68,18 +68,16 @@
 
       const filteredMovieList = () => {
         const filters = get_filters();
-        console.log(filters)
-        output = QUOTES_LIST;
-        console.log(`All quotes:`);
-        console.log(output);
+        let output = QUOTES_LIST;
+        //filter by movie name
         if (filters.movie_name !== "all") {
           output = output.filter(q => q.movie === filters.movie_name);
         }
-        
+        // filter by size
         if (filters.quote_size !== "any") {
           filters.quote_size === "small" ? output = output.filter(q => q.quote_len < 200) : output = output.filter(q => q.quote_len > 200);
         }
-        
+        // filter by number of quotes and/or randomize
         if (filters.quote_num_value > 0 && filters.quote_num_value < output.length) {
           output = getRandomQuotes(output, filters.quote_num_value);
         } 
