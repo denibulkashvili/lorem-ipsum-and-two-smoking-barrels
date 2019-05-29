@@ -1,1 +1,1 @@
-web: gunicorn lesson_planner.wsgi
+web: gunicorn lorem_ipsum.wsgi
