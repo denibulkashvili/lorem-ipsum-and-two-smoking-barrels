@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
   <h1 class="center">lorem, ipsum <br/>and two smoking barrels</h1>
 
   <div class="row">
-    <div class="input-field col s12 m4">
+    <div class="input-field col s12 m6">
         <select name="movie-list" id="movie-list">
           <option value="all">All</option>
           <option value="snatch">Snatch</option>
-          <option value="lock">Lock, Stock and Two Smoking Barrels</option>
+          <option value="lock-stock-and-two-smoking-barrels">Lock, Stock and Two Smoking Barrels</option>
         </select>
         <label>Choose a Movie</label>
       </div>
       
-      <div class="input-field col s12 m4">
+      <div class="input-field col s12 m3">
         <select name="quote-size" id="quote-size">
           <option value="any">Any</option>
           <option value="big">Big</option>
@@ -22,14 +23,15 @@
         <label>Choose quotes size</label>
       </div>
 
-      <div class="input-field col s12 m4">
-          <input placeholder="5" id="quote_num" type="number">
+      <div class="input-field col s12 m3">
+          <input placeholder="e.g. 5" id="quote_num" type="number">
           <label for="quote_num">Number of Quotes</label>
       </div>
 
       <div class="center">
           <a class="waves-effect waves-light btn" type="submit" id="load-quotes">Load Quotes</a>
       </div>
+      
       
   </div>
 
@@ -41,17 +43,60 @@
   
 
   {% block javascript %}
+
+   
+
     <script>
 
-      let movie_selector = document.getElementById("movie-list");
-      let movie_option = movie_selector.options[movie_selector.selectedIndex].text;
+      const QUOTES_LIST = JSON.parse('{{ quotes_list | escapejs }}');
+      
+      const get_filters = () => {
+        let movie_selector = document.getElementById("movie-list");
+        let movie_name = movie_selector.options[movie_selector.selectedIndex].value;
+
+        let quote_size_selector = document.getElementById("quote-size");
+        let quote_size = quote_size_selector.options[quote_size_selector.selectedIndex].value;
+
+        let quote_num_value = document.getElementById("quote_num").value;
+
+        return {movie_name, quote_size, quote_num_value}
+      }
+
+      const getRandomQuotes = (array, numQuotes) => {
+        return array.sort(() => .5 - Math.random()).slice(0, numQuotes);
+      }
+
+      const filteredMovieList = () => {
+        const filters = get_filters();
+        console.log(filters)
+        output = QUOTES_LIST;
+        console.log(`All quotes:`);
+        console.log(output);
+        if (filters.movie_name !== "all") {
+          output = output.filter(q => q.movie === filters.movie_name);
+        }
+        
+        if (filters.quote_size !== "any") {
+          filters.quote_size === "small" ? output = output.filter(q => q.quote_len < 200) : output = output.filter(q => q.quote_len > 200);
+        }
+        
+        if (filters.quote_num_value > 0 && filters.quote_num_value < output.length) {
+          output = getRandomQuotes(output, filters.quote_num_value);
+        } 
+        else {
+          output = getRandomQuotes(output, output.length);
+        }
+        return output
+      }
 
       const loadQuotes = (event) => {
         event.preventDefault();
-        document.getElementById('results').innerHTML = `
-          {% for quote in quote_list %}
-            <div class="quote">{{ quote.text }}</div>
-          {% endfor %}`
+
+        const movieList = filteredMovieList().map((quote) => {
+          return `<p>${quote.text}</p>`
+        }).join('');
+
+        document.getElementById('results').innerHTML = movieList;
       }
       document.getElementById('load-quotes').
         addEventListener("click", loadQuotes)
