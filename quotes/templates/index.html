@@ -96,6 +96,7 @@
           return `<p>${quote.text}</p>`
         }).join('');
         console.log("injecting html...")
+        console.log(movieList);
         document.getElementById('results').innerHTML = movieList;
       }
       document.getElementById('load-quotes').addEventListener("click", loadQuotes);
