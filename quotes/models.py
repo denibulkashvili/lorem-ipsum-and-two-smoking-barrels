@@ -13,13 +13,3 @@ class Quote(models.Model):
         if len(self.text) > 20:
             return self.text[:20] + "..."
         return self.text
-
-    def get_quote_size(self):
-        """Calculate quote size based on quote_len"""
-        if self.quote_len < 500:
-            return "small"
-        return "big"
-
-    def save(self, *args, **kwargs):
-        self.quote_size = self.get_quote_size()
-        super(Quote, self).save(*args, **kwargs)
