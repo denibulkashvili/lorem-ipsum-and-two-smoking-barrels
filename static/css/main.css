@@ -14,3 +14,14 @@
 input[type=number]:not(.browser-default):focus:not([readonly]) + label {
   color: #F0C430;
 }
+
+/* Results */
+
+#results {
+  border: 2px solid #F0C430;
+  border-radius: 10px;
+  margin: 10px; 
+}
+#results > p {
+  margin: 15px;
+}
