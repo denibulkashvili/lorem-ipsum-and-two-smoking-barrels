@@ -7,6 +7,11 @@
   background-color: rgb(241, 186, 67);
 }
 
+.btn:focus, .btn-large:focus, .btn-small:focus,
+.btn-floating:focus {
+  background-color: rgb(241, 186, 67);
+}
+
 .dropdown-content li > a, .dropdown-content li > span {
   color: #F0C430;
 }
@@ -16,12 +21,19 @@ input[type=number]:not(.browser-default):focus:not([readonly]) + label {
 }
 
 /* Results */
-
-#results {
+#results-wrapper {
   border: 2px solid #F0C430;
   border-radius: 10px;
-  margin: 10px; 
+  margin-bottom: 10px; 
+  position: relative;
 }
+
 #results > p {
   margin: 15px;
+}
+/* copy button */
+.copy-btn {
+  position: absolute;
+  top: -10px;
+  left: -25px;
 }

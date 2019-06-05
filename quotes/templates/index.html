@@ -5,7 +5,7 @@
   <h1 class="center">lorem, ipsum <br/>and two smoking barrels</h1>
 
   <div class="row">
-    <div class="input-field col s12 m6">
+    <div class="input-field col s12 m6" id="selectors">
         <select name="movie-list" id="movie-list">
           <option value="all">All</option>
           <option value="snatch">Snatch</option>
@@ -36,10 +36,11 @@
   </div>
 
   
-  <br>
-
-  <div id="results">
+  <div id="results-wrapper">
+    <div id="results" class="container">
+    </div>
   </div>
+  
   
 
   {% block javascript %}
@@ -89,6 +90,35 @@
         return output
       }
 
+      const createCopyButton = () => {
+        let btn = document.createElement('button');
+        btn.innerHTML = '<i class="material-icons">content_copy</i>';
+        btn.classList.add("btn");
+        btn.classList.add("waves-effect");
+        btn.classList.add("waves-light");
+        btn.classList.add("copy-btn");
+        btn.id = "copy-btn"
+        return btn
+      }
+
+      const copyText = () => {
+        let range = document.createRange();
+        range.selectNode(document.getElementById("results"));
+        window.getSelection().removeAllRanges(); 
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+        alert("Quotes have been copied to clipboard");
+      }
+      // var range = document.createRange();
+      // range.selectNode(document.getElementById("a"));
+      // window.getSelection().removeAllRanges(); // clear current selection
+      // window.getSelection().addRange(range); // to select text
+      // document.execCommand("copy");
+      // window.getSelection().removeAllRanges();// to deselect
+ 
+
+
       const loadQuotes = (event) => {
         event.preventDefault();
 
@@ -97,11 +127,22 @@
         }).join('');
         console.log("injecting html...")
         console.log(movieList);
-        resultsElement = document.getElementById('results');
+        let resultsElement = document.getElementById('results');
         resultsElement.innerHTML = movieList;
-        resultsElement.scrollIntoView({ behavior: 'smooth' }); 
+        // scroll on click
+        selectors = document.getElementById('selectors');
+        selectors.scrollIntoView({ behavior: 'smooth' }); 
+        // add copy-button
+        const btn = createCopyButton();
+        resultsWrapper = document.getElementById('results-wrapper')
+        resultsWrapper.appendChild(btn);
+
+        // add event to copy btn
+        document.getElementById('copy-btn').addEventListener('click', copyText);
       }
+
       document.getElementById('load-quotes').addEventListener("click", loadQuotes);
+      
     </script>
   {% endblock %}
 
