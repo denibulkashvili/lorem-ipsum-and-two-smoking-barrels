@@ -97,7 +97,9 @@
         }).join('');
         console.log("injecting html...")
         console.log(movieList);
-        document.getElementById('results').innerHTML = movieList;
+        resultsElement = document.getElementById('results');
+        resultsElement.innerHTML = movieList;
+        resultsElement.scrollIntoView({ behavior: 'smooth' }); 
       }
       document.getElementById('load-quotes').addEventListener("click", loadQuotes);
     </script>
