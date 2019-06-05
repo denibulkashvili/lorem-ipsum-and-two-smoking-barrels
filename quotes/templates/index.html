@@ -59,12 +59,11 @@
         let quote_size = quote_size_selector.options[quote_size_selector.selectedIndex].value;
 
         let quote_num_value = document.getElementById("quote_num").value;
-        console.log("Filters retrieved...")
+
         return {movie_name, quote_size, quote_num_value}
       }
 
       const getRandomQuotes = (array, numQuotes) => {
-        console.log("Quotes randomized...")
         return array.sort(() => .5 - Math.random()).slice(0, numQuotes);
       }
 
@@ -86,7 +85,6 @@
         else {
           output = getRandomQuotes(output, output.length);
         }
-        console.log("Filters applied ... ")
         return output
       }
 
@@ -110,13 +108,6 @@
         window.getSelection().removeAllRanges();
         M.toast({html: 'Text have been copied to the clipboard!'});
       }
-      // var range = document.createRange();
-      // range.selectNode(document.getElementById("a"));
-      // window.getSelection().removeAllRanges(); // clear current selection
-      // window.getSelection().addRange(range); // to select text
-      // document.execCommand("copy");
-      // window.getSelection().removeAllRanges();// to deselect
- 
 
 
       const loadQuotes = (event) => {
@@ -125,8 +116,7 @@
         const movieList = filteredMovieList().map((quote) => {
           return `<p>${quote.text}</p>`
         }).join('');
-        console.log("injecting html...")
-        console.log(movieList);
+
         let resultsElement = document.getElementById('results');
         resultsElement.innerHTML = movieList;
         // scroll on click
