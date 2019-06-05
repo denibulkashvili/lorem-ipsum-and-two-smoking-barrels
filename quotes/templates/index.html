@@ -108,7 +108,7 @@
         window.getSelection().addRange(range);
         document.execCommand("copy");
         window.getSelection().removeAllRanges();
-        alert("Quotes have been copied to clipboard");
+        M.toast({html: 'Text have been copied to the clipboard!'});
       }
       // var range = document.createRange();
       // range.selectNode(document.getElementById("a"));
